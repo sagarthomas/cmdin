@@ -4,13 +4,16 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test/**/*.test.js",
+    "test": "nyc --reporter=html --reporter=text mocha test/**/*.test.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "prepublish": "npm test"
   },
   "author": "Sagar Thomas",
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "expect": "^23.5.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
   }
 }
