@@ -1,7 +1,7 @@
 {
   "name": "cmdin",
   "version": "0.1.0",
-  "description": "",
+  "description": "A simple way to execute shell commands in Node",
   "main": "app.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha test/**/*.test.js",
@@ -15,5 +15,9 @@
     "expect": "^23.5.0",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sagarthomas/cmdin.git"
   }
 }
