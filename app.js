@@ -1,15 +1,19 @@
 const { exec } = require('child_process');
+const Command = require('./command');
 
-module.exports.run = (command) => {
+
+/**
+ * Returns a command object
+ * @param {*} command 
+ */
+module.exports.run = (command, args) => {
 
     return new Promise((resolve, reject) => {
-        exec(command, (error, stdout, stderr) => {
-            if (error) {
-                reject('The error:' + error);
-                return;
-            }
-            resolve({stdout, stderr});
+        let cmd = new Command(command);
+        cmd.init().then(() => {
+            cmd.with(args).then((res) => {
+                resolve(res);
+            }).catch(e => reject(e));
         });
     });
-    
-};
+}

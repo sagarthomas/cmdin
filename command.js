@@ -14,18 +14,12 @@ class Command {
         this.validated = await this.validate();
     }
 
-    async validate() {
+    validate() {
         return new Promise((resolve, reject) => {
             var validator = (error, stdout, stderr) => {
                 if (error) {
-                    reject(error);
+                    reject({errMsg: `No such command '${this.cmd}' found.`, error});
                     return;
-                } else if (stdout === '') {
-                    var err = {
-                        errMsg: `No such command '${this.cmd}' found.`,
-                        stderr
-                    };
-                    reject(err);
                 } else {
                     resolve(true);
                 }
@@ -42,7 +36,7 @@ class Command {
         });
     }
 
-    async identifyShell() {
+    identifyShell() {
         return new Promise((resolve, reject) => {
             exec('echo $SHELL', (error, stdout, stderr) => {
                 if (error) {
@@ -56,6 +50,29 @@ class Command {
             });
         });
     }
+
+    with(args = []) {
+        let fullCmd = this.cmd + ' ';
+        args.forEach(element => {
+            fullCmd += element + ' ';
+        });
+        fullCmd = fullCmd.trim(' ');
+
+        return new Promise((resolve, reject) => {
+            exec(fullCmd, (error, stdout, stderr) => {
+                if (error) {
+                    let err = {
+                        errMsg: `The arguments for ${this.cmd} are invalid.`,
+                        success: false,
+                        error
+                    };
+                    reject(err);
+                    return;
+                }
+                resolve({stdout, stderr, fullCmd, success: true});
+            });
+        });
+    };
 }
 
 module.exports = Command;
