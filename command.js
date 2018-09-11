@@ -24,7 +24,7 @@ class Command {
                     resolve(true);
                 }
             }
-            if (this.shellType === 'CMD') {
+            if (this.shellType === 'pwsh') {
                 exec(`where ${this.cmd}`, (error, stdout, stderr) => {
                     validator(error, stdout, stderr);
                 });
@@ -39,11 +39,8 @@ class Command {
     identifyShell() {
         return new Promise((resolve, reject) => {
             exec('echo $SHELL', (error, stdout, stderr) => {
-                if (error) {
-                    console.log(`Unidentified shell ${error}`);
-                    return;
-                } else if (stdout === '$SHELL') {
-                    resolve('CMD');
+                if (stdout === '') {
+                    resolve('pwsh');
                 } else {
                     resolve(stdout.trim().split('/').pop());
                 }

@@ -1,6 +1,7 @@
 # cmdin 
 [![Build Status](https://travis-ci.org/sagarthomas/cmdin.svg?branch=master)](https://travis-ci.org/sagarthomas/cmdin)
 [![Coverage Status](https://coveralls.io/repos/github/sagarthomas/cmdin/badge.svg?branch=master)](https://coveralls.io/github/sagarthomas/cmdin?branch=master)
+[![npm version](https://badge.fury.io/js/cmdin.svg)](https://badge.fury.io/js/cmdin)
 
 ## About
 Cmdin is a simple wrapper over the node ` child_process.exec() ` utilizing ES6 Promises to execute shell commands.
